@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "single-vm.fullname" . }}
+  labels:
+    vm.kubevirt.io/name: {{ include "single-vm.name" . }}
+    helm.sh/chart: {{ include "single-vm.chart" . }}
+    vm.kubevirt.io/instance: {{ .Release.Name }}
+    vm.kubevirt.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.service.port }}
+      protocol: TCP
+  selector:
+    kubevirt.io/vm: {{ include "single-vm.name" . }}
+    app.kubernetes.io/name: {{ include "single-vm.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

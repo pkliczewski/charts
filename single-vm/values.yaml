@@ -1,0 +1,16 @@
+# Default values for single-vm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: kubevirt
+  name: fedora-cloud-registry-disk-demo
+  tag: devel
+
+service:
+  type: NodePort
+  port: 22
+
+resources:
+  requests:
+    memory: 1024Mi
